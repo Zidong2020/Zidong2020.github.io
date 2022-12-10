@@ -852,9 +852,7 @@ input::-ms-input-placeholder {
 .blogmix in{
     overflow: hidden;
 }
-.single_service{
-    min-height: 555px;
-}
+
 .blog_readmore_btn{
     display: block;
     width:100%;
