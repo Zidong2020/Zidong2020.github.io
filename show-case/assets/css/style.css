@@ -153,6 +153,7 @@ h5 {
     margin: 0;
     line-height: 2rem;
 }
+
 h1 {
     font-size: 3.75rem;
     font-family: 'Montserrat', sans-serif;
@@ -199,7 +200,7 @@ p:last-child {
     color: #5e9a28;
 }
 .colorsbg{
-    background:#FFE1BD ;
+    background:hsl(0, 0%, 47%);
 }
 .whitetext {
     color: #fff;
@@ -266,7 +267,7 @@ ul{
     top:0;
 }
 .home-overlay {
-    background-color:rgba(255, 225, 189, 0.9);
+    background-color:hsl(0, 41%, 93%);
     width: 100%;
     height:100%;
     position: absolute;
@@ -364,10 +365,10 @@ Button
 
 }
 .btn:hover {
-    background-color:#ffcb93;
+    background-color:hsl(0, 0%, 47%);
     color: #000;
     text-decoration: none;
-    border:1px solid #ffcb93;
+    border:1px solid hsl(0, 0%, 47%);
 }
 .btn-default {
     color: #333;
@@ -547,11 +548,11 @@ input::-ms-input-placeholder {
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus{
     background-color:transparent;
-    color:#ffe1bd;
+    color:hsl(0, 0%, 47%);
 
 }
 .dropdown-menu>li>a{
-    line-height: 4;
+    line-height: 3.5;
 }
 /*.navbar-nav>li>.dropdown-menu{
     margin-top:20px;
@@ -734,10 +735,10 @@ input::-ms-input-placeholder {
     width:90%;
 
 }
-.contact_socail a i{
+.contact_social a i{
     font-size:0.8125rem;
-    color:#000;
-    background: #fff;
+    color:rgb(255, 255, 255);
+    background: rgb(120, 120, 120);
     text-align: center;
     width:40px;
     height: 40px;
@@ -745,7 +746,7 @@ input::-ms-input-placeholder {
     margin-left:10px;
 }
 .contact_socail a:hover i{
-    background: #ffe1bd;
+    background: hsl(0, 41%, 93%);
     color:#fff;
 }
 
@@ -766,11 +767,11 @@ input::-ms-input-placeholder {
 }
 .copyright_text p i{
     padding:0px 10px;
-    color:#ffcb93;
+    color:hsl(0, 41%, 93%);
 }
 .copyright_text p a{
     padding:0px 10px;
-    color:#ffcb93;
+    color:hsl(0, 0%, 47%);
 }
 
 
@@ -794,7 +795,7 @@ input::-ms-input-placeholder {
 }
 
 .scrollup:hover {
-    background: #ffcb93;
+    background: hsl(0, 0%, 47%);
     opacity: 1;
 }
 

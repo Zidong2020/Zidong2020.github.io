@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Zidong Xu - personal website - NLP</title>
+        <title>Zidong Xu - Reddit - bd</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -33,65 +33,27 @@
         <link rel="stylesheet" href="assets/css/responsive.css" />
 
         <script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        
         <div class='preloader'><div class='loaded'>&nbsp;</div></div>
-        <header id="main_menu" class="header navbar-fixed-top">            
-            <div class="main_menu_bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="nave_menu">
-                            <nav class="navbar navbar-default" id="navmenu">
-                                <div class="container-fluid">
-                                    <!-- Brand and toggle get grouped for better mobile display -->
-                                    <div class="navbar-header">
-                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                            <span class="sr-only">Toggle navigation</span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                            <span class="icon-bar"></span>
-                                        </button>
-                                        <a class="navbar-brand" href="index.html">
-                                            <img src="assets/images/logo.png" width="70" height="40"/>
-                                        </a>
-                                    </div>
 
-                                    <!-- Collect the nav links, forms, and other content for toggling -->
+        <!--Navigation bar-->
+        <div id="nav-placeholder">
+            
+        </div>
 
-                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                        <ul class="nav navbar-nav navbar-right">
-                                            <li><a href="aboutus.html">About me</a></li>
-                                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Projects</a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="NLP.html">Natural Language Processing</a></li>
-                                                    <li><a href="service1.html">Neural Nets and Deep Learning</a></li>
-                                                    <li><a href="service1.html">Big Data and Cloud Computing</a></li>
-                                                    <li><a href="service1.html">Data Science and Analytics</a></li> 
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Blog</a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="blog.html">blog page</a></li>
-                                                    <li><a href="bloginner.html">singleblog page</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="resume.html">Resume</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>    
-                                    </div>
-                                </div>
-                            </nav>
-                        </div>	
-                    </div>
-
-                </div>
-
-            </div>
-        </header> <!--End of header -->
+        <script>
+        $(function(){
+          $("#nav-placeholder").load("nav.html");
+        });
+        </script>
+        <!--end of Navigation bar-->
 
 
 
@@ -156,17 +118,18 @@
                                         </div>
 
                                         <div class="single_bloginner s_blogIner_3 margin-top-60">
-                                            <h4>Project Goals</h4>
+                                            <h4>Project Background</h4>
                                             <br>
 
-                                            <p>For our project, we place our interests and efforts on the open-domain chatbots. We expect to build an open-domain chatbot with dramatic responses, which has the ability of 'chatting' with the user in an interesting and interactive way. </p>
+                                            <p>How to better operate Reddit, it is very important to understand users, including understanding the topics they care about, understanding their usage habits and so on.
+                                              The Word Cloud in the figure below uses NLTK to clean up the text output by the user.
+                                              From the Word Cloud, we noticed that the topics that teenagers focus on mainly focus on school, family and emotion.
+                                            </p>
 
-                                            <p>
-                                                Our basic idea is first load the open-source pre-trained models of DialoGPT, which are from microsoft and trained primarily on twits and reddits. Then we finetune the model on the movie dialogue corpus, in the assumption that conversations in movies tend to be more dramatic and emotional, different from common conversations with more apparent features that is easy for us to build models, specifically tweets and reddits. We finally deploy the chatbots using google voice API. More technical details are provided in the following parts. </p>
-                                              
                                             <div class="single_bloginner s_blogIner_1 text-center">
                                               <img src="assets/images/bigdata-images/intro_png.png" alt="" width="150" height="300"/>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -203,14 +166,28 @@
                                                 </div>
                                                 <br><br>
 
-                                                <p>
-                                                  This dataset only includes 
-                                                
-                                                </P>
+                                                <p style="background-color:rgb(237, 233, 233);">
+                                                  <font size="-0.4" >
+                                                  <code>
+                                                    <strong># transform1: change utc to readable timestamp format </strong><br>
+                                                    teenagers_comments = teenagers_comments.withColumn("created_time", to_timestamp(teenagers_comments["created_utc"])) <br><br>
+                                                    <strong># transform2: extract hour part from  readable timestamp "created_time" </strong><br>
+                                                    comments_hour = teenagers_comments.limit(1000000).toPandas()["created_time"].apply(lambda x: x.hour).to_frame() <br>
+                                                   
+                                                    
+                                                  </code>
+                                                  </font>
+                
+                                                </p>
 
                                                 <div class="single_bloginner s_blogIner_1 text-center">
                                                 <img src="assets/images/bigdata-images/Comment_activity_over_time.png" alt="" width="800" height="580"/>
                                                 </div>
+
+                                                </p>
+                                                This plot shows that teens are more active at midnight and less frequently use Reddit in the morning. Thus, if someone wants more attention, they could send a submission or comment at midnight.
+                                                <p>
+
                                                 
                                                 
                                                 
@@ -301,20 +278,6 @@
                                                     </font>
                                               </p>
 
-                                                <p>
-                                                  <strong>After Preprocessing</strong>
-                                                </p>
-
-                                                <p>
-                                                    DialoGPT is a SOTA large-scale pretrained dialogue response generation model for nultiturn conversations. 
-                                                    In the human evaluation, we have used three DialoGPT with different size and compare the time of response generated from DialoGPT. 
-                                                
-                                                </p>
-                                                <br>
-
-                                                                 
-                                                   
-                                               
                                         <br>
                                         <hr>
                                     
@@ -324,6 +287,10 @@
                                         </h3>
                                         <br>  
                                           
+                                        <p>
+                                          In this part, we want to show how to create spark ML pipelines. For example, we make a dummy variable "author_grade" label and use other variables, such as num_comments, selftext_len, and hour when submission is published, as predictors.  Then we build <strong>Random Forests </strong> to predict the most important predicator, and the result shows variable num_comments wins. 
+                                          We also use <strong>Accuracy, Confusion Matrix, and AUC</strong> as criteria to evaluate the prediction ability of our model.
+                                        </p>
                                           
                                         <p>
                                           <strong>a. Random Forest (example): </strong>
@@ -422,22 +389,23 @@
                                           <strong>b. Model evaluation: </strong><br><br>
 
                                           &#9749; Accuracy <br>
-                                          <p style="background-color:rgb(237, 233, 233);">
-                                            <font size="-0.4" >
-                                            <code>
-                                              evaluatorRF = MulticlassClassificationEvaluator( <br>
-                                                &nbsp; &nbsp; labelCol="author_grade_label", predictionCol="prediction", metricName="accuracy" <br>
-                                                &nbsp; ) <br>
+                                            <p style="background-color:rgb(237, 233, 233);">
                                               
-                                              accuracy_rf = evaluatorRF.evaluate(predictions_rf) <br><br>
-                                              
-                                              print("RF_Accuracy = %g" % accuracy_rf) <br>
-                                              print("RF_Test Error = %g" % (1.0 - accuracy_rf)) <br>
-                                              
-                                            </code>
-                                            </font>
+                                              <font size="-0.4" >
+                                              <code>
+                                                evaluatorRF = MulticlassClassificationEvaluator( <br>
+                                                  &nbsp; &nbsp; labelCol="author_grade_label", predictionCol="prediction", metricName="accuracy" <br>
+                                                  &nbsp; ) <br>
+                                                
+                                                accuracy_rf = evaluatorRF.evaluate(predictions_rf) <br><br>
+                                                
+                                                print("RF_Accuracy = %g" % accuracy_rf) <br>
+                                                print("RF_Test Error = %g" % (1.0 - accuracy_rf)) <br>
+                                                
+                                              </code>
+                                              </font>
+                                            </p>
                                           </p>
-                                        </p>
 
                                         &#9749; Confusion Matrix <br>
                                           <p style="background-color:rgb(237, 233, 233);">
@@ -492,41 +460,12 @@
                                         </h3>
                                         <br>
                                         <p>
-                                          Above is all about our NLP final project regarding building a chatbot. 
-                                          Although our SweetHeart chatbot interacts with us as what we've expected, 
-                                          more complex structures and more advanced techniques can be applied to our chatbot in the future.
+                                          In this blog, we first use Word Cloud to give an important impression about what the text says, then show how to use NLTK and spark NLP to do basic text cleaning and finally show how to use spark ML to build pipelines. Although we mention some business sense when analyzing data, we still need to consider more. If you are interested in this project, you can click the link below, our group mate analysis from other angles, or contact me directly through email.
                                         </p>
-                                        <p>
-                                          There is a famous and instructive quote from <strong>Dr. Seuss</strong>:
-                                        </p>
-                                        <p style="font-family: cursive;">
-                                           The more that you read, the more things you will know.<br>
-                                            The more that you learn, the more places you’ll go.
-                                        </p>
-                                        <p>
-                                          While our chatbot has learned from the movie conversations, 
-                                          it is expected that it can learn from daily conversations which have less features and interacted as real. 
-                                          We ourselves also need to keep learning from more papers and applications, 
-                                          in the hope to improve our lovely chatbot and build more interesting and elegant models in the future.
-                                        </p>
+                                       
                                         <br>
                                         <hr>
-                                    
-                                        <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Future Work</strong>
-                                        </h3>
-                                        <br>
-                                        <p> 
-                                          There are still some goals we need to achieve in the future to improve the performance of our model. 
-                                          For the method we used this time, it simply shuffles the training dataset. 
-                                          It may perform much better if we try state-of-the-art planning strategies. 
-                                          Also, if we finetune on larger datasets that balanced and explicitly in some certain utterance style, 
-                                          the quality of reply of our chatbot can be higher. 
-                                          The reply from our model contains a lots of adversarial or meaningless sentences. 
-                                          So we need to find a solution to filter those unwanted replies.</p>
-                                        <br>
-                                        <hr>
-                                    
+                                       
                                         
                                         <h3 style='font-family: "Times New Roman", Times, serif;'>
                                           <strong>Links for more details</strong>
@@ -534,41 +473,12 @@
                                                 <br>
                                                 <ul>
                                                   <li>
-                                                    <a href="https://gu-anly502.github.io/fall-2022-reddit-big-data-project-project-group-14/">Complete Project: </a> Include sections from other team members.
+                                                    Complete Project: <a href="https://gu-anly502.github.io/fall-2022-reddit-big-data-project-project-group-14/">Reddit Discussion on Teenagers</a> 
                                                   </li>
                                   
                                                 </ul>
-                                        <br>
-                                        <hr>
-                                    
-                                        <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>References</strong>
-                                        </h3>
-                                        <br>
-                                        <font size="-0.3">
-                                            <ul>
-                                                <li>
-                                                <a href="https://www.microsoft.com/en-us/research/project/large-scale-pretraining-for-response-generation/">DialoGPT: Toward Human-Quality Conversational Response Generation via Large-Scale Pretraining</a> 
-                                                </li>
-                                                <li>
-                                                <a href="https://aclanthology.org/2020.acl-demos.30.pdf">DIALOGPT : Large-Scale Generative Pre-training for Conversational Response Generation</a> 
-                                                </li>
-                                            </ul>  
-                                        </font>   
-                                        <hr>
-                                        <br>
-
-
-                                        
-                                        <div class="work_socail transition">
-                                            <a href=""><i class="fa fa-facebook img-circle"></i></a>
-                                            <a href=""><i class="fa fa-twitter img-circle"></i></a>
-                                            <a href=""><i class="fa fa-google-plus img-circle"></i></a>
-                                            <a href=""><i class="fa fa-pinterest img-circle"></i></a>
-                                            <a href=""><i class="fa fa-instagram img-circle"></i></a>
-                                        </div>
+                                              
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -579,22 +489,20 @@
 
 
 
-        <!-- footer Section -->
-        <footer id="footer" class="footer">
-            <div class="container">
-                <div class="main_footer">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="copyright_text text-center">
-                                <p class=" wow fadeInRight" data-wow-duration="1s">Made with <i class="fa fa-heart"></i> by <a target="_blank" href="https://bootstrapthemes.co">Bootstrap Themes</a>2016. All Rights Reserved</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End of container -->
-        </footer><!-- End of footer -->
+        <div class='preloader'><div class='loaded'>&nbsp;</div></div>
+        <!--Footer bar-->
+        <div id="footer-placeholder">
+          
+        </div>
 
+        <script>
+        $(function(){
+          $("#footer-placeholder").load("footer.html");
+        });
+        </script>
+        <!--end of Footer bar-->
 
+        
 
         <!-- START SCROLL TO TOP  -->
 
