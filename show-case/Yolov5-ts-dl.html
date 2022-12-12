@@ -79,11 +79,16 @@
                                           <td>
                                             <div class="single_bloginner s_blogIner_1 text-center">
                                               <br>
-                                              <img src="assets/images/dl-images/yolov5-logo.png" alt="" width="130" height="110"/>
+                                              <img src="assets/images/dl-images/opencv-logo.png" alt="" width="100" height="60"/>
+                                            </div>
+                                          </td>
+                                          <td>
+                                            <div class="single_bloginner s_blogIner_1 text-center">
+                                              <br>
+                                              <img src="assets/images/dl-images/yolov5-logo.png" alt="" width="50" height="60"/>
                                             </div>
                                           </td>
                                     
-                                          </td>
                                         </tr>
                                       </table>
 
@@ -95,20 +100,22 @@
 
                                             <ul>
                                               <li>
-                                                &#9749; EDA 
+                                                &#9749; <strong>OpenCV: </strong><a href="https://opencv.org/"><u style="color: rgb(129, 129, 132);">Convert Video to Images (Frames)</u></a>
                                               </li>
-
+                                    
                                               <li>
-                                                &#9749; NLP (NLTK & Spark NLP)
+                                                &#9749; Extract information from images and perform time series analysis
                                               </li>
-
-                                              <li>
-                                                &#9749; Machine Learning Pipelines (Spark ML) <br>
-                                                &nbsp; &nbsp; -- <strong>Random Forests </strong> & <strong>Logistic Regression </strong>
-
-                                              </li>
-                                          
                                               
+                                              <li>
+                                                &#9749; <strong>YOLOv5: </strong><a href="https://pytorch.org/hub/ultralytics_yolov5/"><u style="color: rgb(129, 129, 132);">https://pytorch.org/hub/ultralytics_yolov5/</u></a>
+                                              </li>
+
+                                              <li>
+                                                &#9749; Use <strong>Google Colab</strong> (Hardware accelerator: GPU)
+                                               
+                                              </li>
+                                
                                             </ul>
                                             
 
@@ -118,11 +125,12 @@
                                             <h4>Project Background</h4>
                                             <br>
 
-                                            <p>How to better operate Reddit, it is very important to understand users, including understanding the topics they care about, understanding their usage habits and so on.
-                                              The Word Cloud in the figure below uses NLTK to clean up the text output by the user.
-                                              From the Word Cloud, we noticed that the topics that teenagers focus on mainly focus on school, family and emotion.
-                                            </p>
+                                            <p>
+                                              Thanks to the ubiquitous surveillance cameras, our lives are much safer. But at the same time, how to further use the information collected by them and turn the image information into data?
+                                              This project teaches you how to use OpenCV to transform videos into images. How to use YOLOv5 to do object detection from pictures, and finally, how to plot the number of different types of vehicles over time.
 
+                                            </p>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +141,7 @@
                             <div class="col-sm-12">
                                 <div class="single_bloginner s_blogIner_4 single_bloginner_bottom_heading margin-top-80">
                                     <div class="separator2"></div>
-                                     <h4>Tutorial </h4>
+                                     <h2>Tutorial </h2>
                                 </div>
                             </div>
 
@@ -142,34 +150,47 @@
                                     <div class="single_bloginner s_blogIner_5 margin-top-60">
                                        
                                         <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <div class="single_bloginner s_blogIner_1 text-center">
-                                            <img src="assets/images/bigdata-images/submissions_first5.png" alt="" width="800" height="280"/>
-                                            process pic...
-                                          </div>
-                                          <br><br>
                                           <strong>Pre-processing</strong>
                                         </h3>
 
                                             <br>
                                                 <p>
-                                                  &#9749; import vedio (.mp4) <br>
-                                                  The video is 2hr8min55s which is 26060+8*60+55=7735 seconds <br>
-                                                  The frame rate for the video is roughly 30 frames per second <br>
-                                                  So there are around 7735*30=232050 frames <br>
+                                                  &#9749; <strong>Import vedio (.mp4) </strong><br>
+                                                  - The video is 2hr8min55s, which is 26060+8*60+55=7735 seconds <br>
+                                                  - The frame rate for the video is roughly 30 frames per second <br>
+                                                  - So there are around 7735*30=232050 frames <br><br>
 
-                                                  &#9749; read and convert the video into an ORDERED set of images <br>
-                                                  save frames every 50 seconds, that will be around 155 images <br>
-
+                                                  &#9749; Read and <strong>convert </strong>the video into an ORDERED set of images <br>
+                                                  - save frames every 50 seconds, that will be around 155 images <br>
                                                 </p>
 
                                                 <p style="background-color:rgb(237, 233, 233);">
                                                   <font size="-0.4" >
                                                   <code>
-                                                    <strong># transform1: change utc to readable timestamp format </strong><br>
-                                                    teenagers_comments = teenagers_comments.withColumn("created_time", to_timestamp(teenagers_comments["created_utc"])) <br><br>
-                                                    <strong># transform2: extract hour part from  readable timestamp "created_time" </strong><br>
-                                                    comments_hour = teenagers_comments.limit(1000000).toPandas()["created_time"].apply(lambda x: x.hour).to_frame() <br>
-                                                   
+                                                    import cv2 <br>
+                                                    import math <br><br>
+
+                                                    cap = cv2.VideoCapture(video_path) <br>
+                                                    frameRate = cap.get(5) <strong> #frame rate </strong><br>
+                                                    i = 0 <br>
+                                                    f = 50 # save frames every 50 seconds <br><br>
+
+                                                    while(cap.isOpened()):<br>
+                                                    &nbsp; frameId = cap.get(1) <strong>#current frame number </strong><br>
+                                                    &nbsp; ret, frame = cap.read()<br>
+                                                    &nbsp; if (ret != True): <br>
+                                                    &nbsp;&nbsp;  break <br>
+                                                    &nbsp; if (frameId % math.floor(frameRate*f) == 0): <br>
+                                                    &nbsp;&nbsp; i+=1 <br><br>
+                                                            
+                                                    &nbsp;&nbsp; if not os.path.exists(os.getcwd()+'/frames'):<br>
+                                                    &nbsp;&nbsp;&nbsp; os.makedirs(os.getcwd()+'/frames')<br><br>
+
+                                                    &nbsp;&nbsp; cv2.imwrite(os.getcwd()+'/frames/%05d.jpg' %(i), frame)<br>
+                                                    &nbsp;&nbsp; exit(1)     <br><br>
+                                                            
+                                                    cap.release()<br>
+                                                    
                                                     
                                                   </code>
                                                   </font>
@@ -196,7 +217,7 @@
                                             <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
                                             model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
                                             <strong># AT FIRST USE THE FOLLOWING IMAGES AS A TEST CASE </strong><br>
-                                            images=['frames/00050.jpg','frames/00200.jpg'] <br>
+                                            images=['frames/00050.jpg','frames/00200.jpg'] <br><br>
                                             <strong># INSERT CODE TO EVALUATE THE YOLO MODEL ON THESE IMAGES </strong><br>
                                             results = model(images) <br>
                                             results.show()<br>
@@ -226,13 +247,13 @@
 
 
                                         <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Explore the model </strong>
+                                          <strong>Time-series analysis </strong>
                                         </h3>
                                         <br>
                                         <p>
-                                          normalize (scale) the xmin, xmax by the width of the image and ymin, ymax by the height --> HxW=1x1 <br>
-                                          compute the area and center of each box using the normalized coordinates <br>
-                                          add a column named "nearby" which is True if normalized_area>0.05 <br>
+                                          - Normalize the xmin, xmax by the width of the image and ymin, ymax by the height <br>
+                                          - Compute the area and center of each box using the normalized coordinates <br>
+                                          - Add a column named "nearby" which is True if normalized_area>0.05 <br>
                                         </p>
 
                                         <p style="background-color:rgb(237, 233, 233);">
@@ -259,23 +280,20 @@
 
                                           <div class="single_bloginner s_blogIner_1 text-center">
                                             <img src="assets/images/dl-images/p4.png" alt="" width="600" height="120"/><br><br>
-                                            
+                                            Info of each image with new varible "area" <br><br>
                                           </div>
                                           
                                           
                                         </h3>
                                         <br>
 
-                                        <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Time-series analysis </strong>
-                                        </h3>
-
+                                      
                                         <p>
                                         <h5><strong>Process all images ... </strong></h5>
                                           Loop over the results and build arrays with time-series data for the following: <br>
-                                          The frames are ordered so we can treat the index as a "time" variables <br>
-                                          Total number num_cars and num_trucks in each frame <br>
-                                          num_neighbor = Number of neighboring cars and trucks (use normalized box area > .05 to signify a nearby car or truck) <br>
+                                          - The frames are ordered so we can treat the index as a "time" variables <br>
+                                          - Total number num_cars and num_trucks in each frame <br>
+                                          - num_neighbor = Number of neighboring cars and trucks (use normalized box area > .05 to signify a nearby car or truck) <br>
                                         </p>
 
                                         <p style="background-color:rgb(237, 233, 233);">
@@ -300,12 +318,12 @@
                                         </p>   
 
                                         <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="assets/images/dl-images/p5.png" alt="" width="600" height="60"/><br><br>
-                                         
+                                          <img src="assets/images/dl-images/p5.png" alt="" width="800" height="60"/><br><br>
+                                          Number of different vehicles over time (list) <br><br>
                                         </div>
                                         <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="assets/images/dl-images/p6.png" alt="" width="600" height="450"/><br><br>
-                                         
+                                          <img src="assets/images/dl-images/p6.png" alt="" width="600" height="400"/><br><br>
+                                          Number of vehicle changes over time (plot) <br><br>
                                         </div>
                                         <br>
                                         <hr>
@@ -316,9 +334,7 @@
                                         <br>
                                         
                                         <p>
-                                          In this blog, we first use Word Cloud to give an important impression about what the text says, then show how to use NLTK and spark NLP to do basic text cleaning and finally show how to use spark ML to build pipelines. Although we mention some business sense when analyzing data, we still need to consider more. If you are interested in this project, you can click the link below, our group mate analysis from other angles, or contact me directly through email.
-                                        </p>
-                                       
+                                          In this blog, we first show how to use OpenCV to transform video into images, how to use YOLOv5 to do object detection from each image, and then normalize the size of each object and create a new variable to calculate the number of different vehicles in each image and finally draw plots to show the number of vehicle changes over time. We can do more by saving images more frequently, creating variables to record more information, and using time series models to analyze further.
                                         <br>
                                         <hr>
                                        
@@ -329,7 +345,7 @@
                                                 <br>
                                                 <ul>
                                                   <li>
-                                                    Complete Project: <a href="https://gu-anly502.github.io/fall-2022-reddit-big-data-project-project-group-14/">Reddit Discussion on Teenagers</a> 
+                                                    Complete Project (Google Colab): <a href="https://drive.google.com/drive/folders/1czEhEbJsA9oKRBHlcNfXc2xm-T1klmuu?usp=sharing">Zidong Xu - YOLOv5 & Time series analysis (HW3)</a> 
                                                   </li>
                                   
                                                 </ul>

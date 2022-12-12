@@ -60,6 +60,8 @@ a:active,
 a:focus {
     text-decoration: none;
     outline: none;
+    color:hsl(0, 0%, 47%)
+    
 }
 a,
 button,
@@ -163,7 +165,7 @@ h2 {
     font-size:3rem;
     line-height: 3rem;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
+    font-weight: 550;
 }
 h3 {
     font-size:1.875rem;
@@ -267,7 +269,8 @@ ul{
     top:0;
 }
 .home-overlay {
-    background-color:hsl(0, 41%, 93%);
+    background-image: url("../images/bg_1.png");
+    opacity: 0.4;
     width: 100%;
     height:100%;
     position: absolute;
@@ -582,7 +585,6 @@ input::-ms-input-placeholder {
 }
 .single_home_slider{
     margin-top:70px;
-    background:url(../images/homebg.jpg) no-repeat top center;
     position: relative;
 }
 .main_home_slider .owl-controls{
@@ -746,7 +748,7 @@ input::-ms-input-placeholder {
     margin-left:10px;
 }
 .contact_socail a:hover i{
-    background: hsl(0, 41%, 93%);
+    background: hsl(0, 57%, 91%);
     color:#fff;
 }
 
@@ -767,11 +769,11 @@ input::-ms-input-placeholder {
 }
 .copyright_text p i{
     padding:0px 10px;
-    color:hsl(0, 41%, 93%);
+    color:hsl(228, 54%, 37%);
 }
 .copyright_text p a{
     padding:0px 10px;
-    color:hsl(0, 0%, 47%);
+    color:hsl(228, 54%, 37%);
 }
 
 
@@ -825,7 +827,7 @@ input::-ms-input-placeholder {
 }
 .main_about_area .single_about_left_text{
     width:80%;
-    margin:40px auto;
+    margin:30px auto;
 }
 .main_about_area .single_about_left_text h4{
     line-height: 3rem;
