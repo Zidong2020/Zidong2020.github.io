@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Zidong Xu - YOLOv5 & Time series analysis</title>
+        <title>Zidong Xu - CNN-Based Model for Recognizing Street View House Numbers </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -63,10 +63,10 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="head_title text-center">
-                            <h3>YOLOv5 & Time series analysis </h3>
+                            <h3>CNN-Based Model for Recognizing Street View House Numbers </h3>
 
-                            <h5>11 December 2022</h5>
-                            Authors: Zidong Xu
+                            <h5>13 December 2022</h5>
+                            Authors: Shiwei Yu, Jiaying Zhuang, Xiaomeng Chen, Zidong Xu, Zixuan Wang
 
                         </div><!-- End of head title -->
                         <div class="main_bloginner_area">
@@ -74,25 +74,6 @@
                                 <div class="col-sm-10 col-sm-offset-1">
                                     <div class="main_bloginner_content">
 
-                                      <table style="margin:auto;">
-                                        <tr>
-                                          <td>
-                                            <div class="single_bloginner s_blogIner_1 text-center">
-                                              <br>
-                                              <img src="assets/images/dl-images/opencv-logo.png" alt="" width="100" height="60"/>
-                                            </div>
-                                          </td>
-                                          <td>
-                                            <div class="single_bloginner s_blogIner_1 text-center">
-                                              <br>
-                                              <img src="assets/images/dl-images/yolov5-logo.png" alt="" width="50" height="60"/>
-                                            </div>
-                                          </td>
-                                    
-                                        </tr>
-                                      </table>
-
-                                       
                                         <div class="single_bloginner s_blogIner_2 margin-top-80">
                                             <div class="separator2"></div>
                                             <p><strong>Focus on... </strong>
@@ -100,17 +81,9 @@
 
                                             <ul>
                                               <li>
-                                                &#9749; <strong>OpenCV: </strong><a href="https://opencv.org/"><u style="color: rgb(129, 129, 132);">Convert Video to Images (Frames)</u></a>
+                                                &#9749; <strong>SVHN: </strong><a href="http://ufldl.stanford.edu/housenumbers/"><u style="color: rgb(129, 129, 132);">http://ufldl.stanford.edu/housenumbers/</u></a>
                                               </li>
                                     
-                                              <li>
-                                                &#9749; <strong>YOLOv5: </strong><a href="https://pytorch.org/hub/ultralytics_yolov5/"><u style="color: rgb(129, 129, 132);">https://pytorch.org/hub/ultralytics_yolov5/</u></a>
-                                              </li>
-
-                                              <li>
-                                                &#9749; Extract information from images and perform time series analysis
-                                              </li>
-
                                               <li>
                                                 &#9749; Use <strong>Google Colab</strong> (Hardware accelerator: GPU)
                                                
@@ -125,11 +98,22 @@
                                             <h4>Project Background</h4>
                                             <br>
 
-                                            <p>
+                                           
                                               Thanks to the ubiquitous surveillance cameras, our lives are much safer. But at the same time, how to further use the information collected by them and turn the image information into data?
                                               This project teaches you how to use OpenCV to transform videos into images. How to use YOLOv5 to do object detection from pictures, and finally, how to plot the number of different types of vehicles over time.
 
-                                            </p>
+                                            
+                                            <table style="margin:auto;">
+                                              <tr>
+                                                <td>
+                                                  <div class="single_bloginner s_blogIner_1 text-center">
+                                                    <br>
+                                                    <img src="assets/images/dl-images/svhn-logo.png" alt="" width="300" height="200"/>
+                                                  </div>
+                                                </td>
+                                                <td>  
+                                              </tr>
+                                            </table>
                                             
                                         </div>
                                     </div>
@@ -155,179 +139,120 @@
 
                                             <br>
                                                 <p>
-                                                  &#9749; <strong>Import vedio (.mp4) </strong><br>
+                                                  <strong>Import Dataset </strong><br>
                                                   - The video is 2hr8min55s, which is 26060+8*60+55=7735 seconds <br>
                                                   - The frame rate for the video is roughly 30 frames per second <br>
                                                   - So there are around 7735*30=232050 frames <br><br>
+                                                  
+                                                  <p style="background-color:rgb(237, 233, 233);">
+                                                    <font size="-0.4" >
+                                                    <code>
+                                                      frameRate = cap.get(5) <strong> #frame rate </strong><br>
+                                                      i = 0 <br>
+                                                      f = 50 # save frames every 50 seconds <br><br>
+                                                      &nbsp;
+                                                      
+                                                    </code>
+                                                    </font>
+                                                  </p>
 
-                                                  &#9749; Read and <strong>convert </strong>the video into an ORDERED set of images <br>
+                                                  <strong>Exploratory data analysis</strong><br>
                                                   - save frames every 50 seconds, that will be around 155 images <br>
+
+                                                  <p style="background-color:rgb(237, 233, 233);">
+                                                    <font size="-0.4" >
+                                                    <code>
+                                                      frameRate = cap.get(5) <strong> #frame rate </strong><br>
+                                                      i = 0 <br>
+                                                      f = 50 # save frames every 50 seconds <br><br>
+                                                      &nbsp;
+                                                      
+                                                    </code>
+                                                    </font>
+                                                  </p>
+
                                                 </p>
 
-                                                <p style="background-color:rgb(237, 233, 233);">
-                                                  <font size="-0.4" >
-                                                  <code>
-                                                    import cv2 <br>
-                                                    import math <br><br>
-
-                                                    cap = cv2.VideoCapture(video_path) <br>
-                                                    frameRate = cap.get(5) <strong> #frame rate </strong><br>
-                                                    i = 0 <br>
-                                                    f = 50 # save frames every 50 seconds <br><br>
-
-                                                    while(cap.isOpened()):<br>
-                                                    &nbsp; frameId = cap.get(1) <strong>#current frame number </strong><br>
-                                                    &nbsp; ret, frame = cap.read()<br>
-                                                    &nbsp; if (ret != True): <br>
-                                                    &nbsp;&nbsp;  break <br>
-                                                    &nbsp; if (frameId % math.floor(frameRate*f) == 0): <br>
-                                                    &nbsp;&nbsp; i+=1 <br><br>
-                                                            
-                                                    &nbsp;&nbsp; if not os.path.exists(os.getcwd()+'/frames'):<br>
-                                                    &nbsp;&nbsp;&nbsp; os.makedirs(os.getcwd()+'/frames')<br><br>
-
-                                                    &nbsp;&nbsp; cv2.imwrite(os.getcwd()+'/frames/%05d.jpg' %(i), frame)<br>
-                                                    &nbsp;&nbsp; exit(1)     <br><br>
-                                                            
-                                                    cap.release()<br>
-                                                    
-                                                    
-                                                  </code>
-                                                  </font>
-                
-                                                </p>                                                               
+                                                                                                           
                                                 <hr>
                                      
                                         <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Explore the model </strong>
+                                          <strong>Models & Results </strong>
                                         </h3>
                                         <br>
-                                        <p>
-                                          Before processing the video data, we want to make sure we can get YOLO working correctly for a few images. <br>
-                                        </p>
-
-                                        <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="assets/images/dl-images/p1.png" alt="" width="400" height="240"/><br><br>
-                                          Original image<br><br>
-                                        </div>
+                                        
+                                        <h5><strong>&#9749; PCA & KNN</strong></h5><br>
 
                                         <p style="background-color:rgb(237, 233, 233);">
                                           <font size="-0.4" >
                                           <code>
                                             <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
                                             model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
-                                            <strong># AT FIRST USE THE FOLLOWING IMAGES AS A TEST CASE </strong><br>
-                                            images=['frames/00050.jpg','frames/00200.jpg'] <br><br>
-                                            <strong># INSERT CODE TO EVALUATE THE YOLO MODEL ON THESE IMAGES </strong><br>
-                                            results = model(images) <br>
-                                            results.show()<br>
- 
+                                         
                                           </code>
                                           </font>
                                         </p>   
 
                                         <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="assets/images/dl-images/p2.png" alt="" width="400" height="480"/><br><br>
+                                          <img src="" alt="" width="400" height="480"/><br><br>
                                           Images after process<br><br>
                                         </div>
 
-                                        <p style="background-color:rgb(237, 233, 233);">
-                                          <font size="-0.4" >
-                                          <code>
-                                            <strong>#THE INFORMATION ABOUT THE BOUNDING BOXES CAN BE EXTRACTED AS FOLLOWS </strong><br>
-                                            print(results.pandas().xyxy[1])<br>
-                                          </code>
-                                          </font>
-                                        </p> 
-
-                                        <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="assets/images/dl-images/p3.png" alt="" width="600" height="450"/><br><br>
-                                          Objects summary<br><br>
-                                        </div>
-
-
-                                        <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Time-series analysis </strong>
-                                        </h3>
-                                        <br>
-                                        <p>
-                                          - Normalize the xmin, xmax by the width of the image and ymin, ymax by the height <br>
-                                          - Compute the area and center of each box using the normalized coordinates <br>
-                                          - Add a column named "nearby" which is True if normalized_area>0.05 <br>
-                                        </p>
+                                        <h5><strong>&#9749; K-means</strong></h5><br>
 
                                         <p style="background-color:rgb(237, 233, 233);">
                                           <font size="-0.4" >
                                           <code>
-                                            def box_normalize(df): <br>
-                                            &nbsp; YMAX=img.shape[0] <br>
-                                            &nbsp; XMAX=img.shape[1] <br><br>
-                                                
-                                            &nbsp; df["xmin"] = (df["xmin"]/XMAX) <br>
-                                            &nbsp; df["xmax"] = (df["xmax"]/XMAX) <br>
-                                            &nbsp; df["ymin"] = (df["ymin"]/YMAX) <br>
-                                            &nbsp; df["ymax"] = (df["ymax"]/YMAX) <br><br>
-
-                                            &nbsp; df['area'] = (df["xmax"] - df["xmin"]) * (df["ymax"] - df["ymin"]) <br>
-                                                
-                                            &nbsp; df['area'] = np.where(df['area'] > 0.05, True, False) <br><br>
-
-                                            &nbsp; return df <br><br>
-
-                                            box_normalize(results.pandas().xyxy[0])<br>
-
-                                          </code>
-
-                                          <div class="single_bloginner s_blogIner_1 text-center">
-                                            <img src="assets/images/dl-images/p4.png" alt="" width="600" height="120"/><br><br>
-                                            Info of each image with new varible "area" <br><br>
-                                          </div>
-                                          
-                                          
-                                        </h3>
-                                        <br>
-
-                                      
-                                        <p>
-                                        <h5><strong>Process all images ... </strong></h5>
-                                          Loop over the results and build arrays with time-series data for the following: <br>
-                                          - The frames are ordered so we can treat the index as a "time" variables <br>
-                                          - Total number num_cars and num_trucks in each frame <br>
-                                          - num_neighbor = Number of neighboring cars and trucks (use normalized box area > .05 to signify a nearby car or truck) <br>
-                                        </p>
-
-                                        <p style="background-color:rgb(237, 233, 233);">
-                                          <font size="-0.4" >
-                                          <code>
-                                            <strong># INSERT CODE TO LOOP OVER RESULTS AND BUILD ARRAYS </strong><br>
-                                            num_cars = [] <br>
-                                            num_trucks = [] <br>
-                                            num_neighbor = [] <br>
-                                            for i in range(0,len(results)): <br>
-                                            &nbsp; temp = box_normalize(results.pandas().xyxy[i]) <br><br>
-
-                                            &nbsp; car_count = (temp["name"] == "car").sum() <br>
-                                            &nbsp; truck_count = (temp["name"] == "truck").sum() <br>
-                                            &nbsp; neighbor_count = (temp["area"] == True).sum() <br><br>
-
-                                            &nbsp; num_cars.append(car_count) <br>
-                                            &nbsp; num_trucks.append(truck_count) <br>
-                                            &nbsp; num_neighbor.append(neighbor_count) <br>
+                                            <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
+                                            model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
+                                         
                                           </code>
                                           </font>
                                         </p>   
 
                                         <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="assets/images/dl-images/p5.png" alt="" width="800" height="60"/><br><br>
-                                          Number of different vehicles over time (list) <br><br>
+                                          <img src="" alt="" width="400" height="480"/><br><br>
+                                          Images after process<br><br>
                                         </div>
+
+                                        <h5><strong>&#9749; VGG-16</strong></h5><br>
+
+                                        <p style="background-color:rgb(237, 233, 233);">
+                                          <font size="-0.4" >
+                                          <code>
+                                            <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
+                                            model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
+                                         
+                                          </code>
+                                          </font>
+                                        </p>   
+
                                         <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="assets/images/dl-images/p6.png" alt="" width="600" height="400"/><br><br>
-                                          Number of vehicle changes over time (plot) <br><br>
+                                          <img src="" alt="" width="400" height="480"/><br><br>
+                                          Images after process<br><br>
                                         </div>
-                                        <br>
+                                        
+
+                                        <h5><strong>&#9749; ResNet</strong></h5><br>
+
+                                        <p style="background-color:rgb(237, 233, 233);">
+                                          <font size="-0.4" >
+                                          <code>
+                                            <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
+                                            model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
+                                         
+                                          </code>
+                                          </font>
+                                        </p>   
+
+                                        <div class="single_bloginner s_blogIner_1 text-center">
+                                          <img src="" alt="" width="400" height="480"/><br><br>
+                                          Images after process<br><br>
+                                        </div>
                                         <hr>
-                                    
+
+
+
                                         <h3 style='font-family: "Times New Roman", Times, serif;'>
                                           <strong>Conclusions</strong>
                                         </h3>
@@ -345,7 +270,7 @@
                                                 <br>
                                                 <ul>
                                                   <li>
-                                                    Complete Project (Google Colab): <a href="https://drive.google.com/drive/folders/1czEhEbJsA9oKRBHlcNfXc2xm-T1klmuu?usp=sharing"><u>Zidong Xu - YOLOv5 & Time series analysis (HW3)</u></a> 
+                                                    Complete Project (Github): <a href="https://github.com/Suie-Yu/ANLY590-CNN-based-model-for-recognizing-SVHN"><u>https://github.com/Suie-Yu/ANLY590-CNN-based-model-for-recognizing-SVHN</u></a> 
                                                   </li>
                                   
                                                 </ul>
