@@ -81,7 +81,11 @@
 
                                             <ul>
                                               <li>
-                                                &#9749; <strong>OpenAI </strong><a href="http://ufldl.stanford.edu/housenumbers/"><u style="color: rgb(129, 129, 132);">http://ufldl.stanford.edu/housenumbers/</u></a>
+                                                &#9749; <strong>OpenAI </strong><a href="https://beta.openai.com/examples"><u style="color: rgb(129, 129, 132);">https://beta.openai.com/examples</u></a>
+                                              </li>
+
+                                              <li>
+                                                &#9749; <strong>Streamlit </strong><a href="https://docs.streamlit.io/library/api-reference"><u style="color: rgb(129, 129, 132);">https://docs.streamlit.io/library/api-reference</u></a>
                                               </li>
 
                                               <li>
@@ -89,32 +93,8 @@
                                               </li>
 
                                             </ul>
-                                            
-
                                         </div>
-
-                                        <div class="single_bloginner s_blogIner_3 margin-top-60">
-                                            <h4>Project Background</h4>
-                                            <br>
-
-                                           
-                                              Thanks to the ubiquitous surveillance cameras, our lives are much safer. But at the same time, how to further use the information collected by them and turn the image information into data?
-                                              This project teaches you how to use OpenCV to transform videos into images. How to use YOLOv5 to do object detection from pictures, and finally, how to plot the number of different types of vehicles over time.
-
-                                            
-                                            <table style="margin:auto;">
-                                              <tr>
-                                                <td>
-                                                  <div class="single_bloginner s_blogIner_1 text-center">
-                                                    <br>
-                                                    <img src="assets/images/dl-images/svhn-logo.png" alt="" width="300" height="200"/>
-                                                  </div>
-                                                </td>
-                                                <td>  
-                                              </tr>
-                                            </table>
-                                            
-                                        </div>
+                            
                                     </div>
                                 </div>
                             </div>
@@ -124,103 +104,59 @@
                             <div class="col-sm-12">
                                 <div class="single_bloginner s_blogIner_4 single_bloginner_bottom_heading margin-top-80">
                                     <div class="separator2"></div>
-                                     <h2>Tutorial </h2>
+                                     <h4>Tutorial </h4>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-10 col-sm-push-1">
                                     <div class="single_bloginner s_blogIner_5 margin-top-60">
-                                       
                                         <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Pre-processing</strong>
+                                          <strong>Setup </strong>
                                         </h3>
 
-                                            <br>
-                                                <p>
-                                                  <strong>Import Dataset </strong><br>
-                                                  - The video is 2hr8min55s, which is 26060+8*60+55=7735 seconds <br>
-                                                  - The frame rate for the video is roughly 30 frames per second <br>
-                                                  - So there are around 7735*30=232050 frames <br><br>
-                                                  
-                                                  <p style="background-color:rgb(237, 233, 233);">
-                                                    <font size="-0.4" >
-                                                    <code>
-                                                      frameRate = cap.get(5) <strong> #frame rate </strong><br>
-                                                      i = 0 <br>
-                                                      f = 50 # save frames every 50 seconds <br><br>
-                                                      &nbsp;
-                                                      
-                                                    </code>
-                                                    </font>
-                                                  </p>
-
-                                                  <strong>Exploratory data analysis</strong><br>
-                                                  - save frames every 50 seconds, that will be around 155 images <br>
-
-                                                  <p style="background-color:rgb(237, 233, 233);">
-                                                    <font size="-0.4" >
-                                                    <code>
-                                                      frameRate = cap.get(5) <strong> #frame rate </strong><br>
-                                                      i = 0 <br>
-                                                      f = 50 # save frames every 50 seconds <br><br>
-                                                      &nbsp;
-                                                      
-                                                    </code>
-                                                    </font>
-                                                  </p>
-
-                                                </p>
-
-                                                                                                           
-                                                <hr>
-                                     
-                                        <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Models & Results </strong>
-                                        </h3>
-                                        <br>
-                                        
-                                        <h5><strong>&#9749; PCA & KNN</strong></h5><br>
-
+                                        - Installation <br>
                                         <p style="background-color:rgb(237, 233, 233);">
                                           <font size="-0.4" >
                                           <code>
-                                            <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
-                                            model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
-                                         
+                                            &nbsp; python -m pip install streamlit
+                                          </code>
+                                          </font>
+
+                                        </p>   
+                                        - Import <br>
+                                        <p style="background-color:rgb(237, 233, 233);">
+                                          <font size="-0.4" >
+                                          <code>
+                                            &nbsp; import streamlit as st
                                           </code>
                                           </font>
                                         </p>   
-
-                                        <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="" alt="" width="400" height="480"/><br><br>
-                                          Images after process<br><br>
-                                        </div>
-                                        <hr>
-
-                                      
-
-                                        <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Conclusions</strong>
-                                        </h3>
-                                        <br>
-                                        
-                                        <p>
-                                          In this blog, we first show how to use OpenCV to transform video into images, how to use YOLOv5 to do object detection from each image, and then normalize the size of each object and create a new variable to calculate the number of different vehicles in each image and finally draw plots to show the number of vehicle changes over time. We can do more by saving images more frequently, creating variables to record more information, and using time series models to analyze further.
-                                        <br>
-                                        <hr>
                                        
+                                        - Run: (i.e. launch web-app from the command line) <br>
+                                        <p style="background-color:rgb(237, 233, 233);">
+                                          <font size="-0.4" >
+                                          <code>
+                                            &nbsp; streamlit run ***.py
+                                          </code>
+                                          </font>
+                                        </p>   
+                                       
+                                       
+                                               
+                                        <div class="single_bloginner s_blogIner_1 text-center">
+                                          <img src="assets/images/dl-images/gpt3-1.png" alt="" width="700" height="580"/><br><br>
+                                          ***.py code <br><br>
+                                        </div>
                                         
-                                        <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Links for more details</strong>
-                                        </h3>
-                                                <br>
-                                                <ul>
-                                                  <li>
-                                                    Complete Project (Github): <a href="https://github.com/Suie-Yu/ANLY590-CNN-based-model-for-recognizing-SVHN"><u>https://github.com/Suie-Yu/ANLY590-CNN-based-model-for-recognizing-SVHN</u></a> 
-                                                  </li>
-                                  
-                                                </ul>
+                               
+                                        <div class="single_bloginner s_blogIner_1 text-center">
+                                          <img src="assets/images/dl-images/gpt3-2.png" alt="" width="700" height="300"/><br><br>
+                                          chatbot demo <br><br>
+                                        </div>
+                                        
+
+
                                               
                                     </div>
                                 </div>

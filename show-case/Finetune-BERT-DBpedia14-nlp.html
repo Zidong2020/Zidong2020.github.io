@@ -72,8 +72,7 @@
                         <div class="main_bloginner_area">
                             <div class="row">
                                 <div class="col-sm-10 col-sm-offset-1">
-                                    <div class="main_bloginner_content">
-
+                                
                                         <div class="single_bloginner s_blogIner_2 margin-top-80">
                                             <div class="separator2"></div>
                                             <p><strong>Focus on... </strong>
@@ -82,11 +81,7 @@
                                             <ul>
                                       
                                               <li>
-                                                &#9749; Handle Imbalanced Dataset
-                                              </li>
-
-                                              <li>
-                                                &#9749; Use a smaller version of BERT called DistilBERT
+                                                &#9749; use the BERT transformer model 
                                               </li>
 
                                               <li>
@@ -95,32 +90,7 @@
                                               </li>
                                 
                                             </ul>
-                                            
-
-                                        </div>
-
-                                        <div class="single_bloginner s_blogIner_3 margin-top-60">
-                                            <h4>Project Background</h4>
-                                            <br>
-
-                                           
-                                              Thanks to the ubiquitous surveillance cameras, our lives are much safer. But at the same time, how to further use the information collected by them and turn the image information into data?
-                                              This project teaches you how to use OpenCV to transform videos into images. How to use YOLOv5 to do object detection from pictures, and finally, how to plot the number of different types of vehicles over time.
-
-                                            
-                                            <table style="margin:auto;">
-                                              <tr>
-                                                <td>
-                                                  <div class="single_bloginner s_blogIner_1 text-center">
-                                                    <br>
-                                                    <img src="assets/images/dl-images/svhn-logo.png" alt="" width="300" height="200"/>
-                                                  </div>
-                                                </td>
-                                                <td>  
-                                              </tr>
-                                            </table>
-                                            
-                                        </div>
+                              
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +100,7 @@
                             <div class="col-sm-12">
                                 <div class="single_bloginner s_blogIner_4 single_bloginner_bottom_heading margin-top-80">
                                     <div class="separator2"></div>
-                                     <h2>Tutorial </h2>
+                                     <h4>Tutorial </h4>
                                 </div>
                             </div>
 
@@ -139,143 +109,80 @@
                                     <div class="single_bloginner s_blogIner_5 margin-top-60">
                                        
                                         <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Pre-processing</strong>
+                                          <strong>Analyze the data </strong>
                                         </h3>
-
-                                            <br>
-                                                <p>
-                                                  <strong>Import Dataset </strong><br>
-                                                  - The video is 2hr8min55s, which is 26060+8*60+55=7735 seconds <br>
-                                                  - The frame rate for the video is roughly 30 frames per second <br>
-                                                  - So there are around 7735*30=232050 frames <br><br>
+                                              <br>
+                                              <strong>Download the dataset </strong><br>
+                                              <br>
+                                              <p style="background-color:rgb(237, 233, 233);">
+                                                <font size="-0.4" >
+                                                <code>
+                                                  M = 30000 <br>
                                                   
-                                                  <p style="background-color:rgb(237, 233, 233);">
-                                                    <font size="-0.4" >
-                                                    <code>
-                                                      frameRate = cap.get(5) <strong> #frame rate </strong><br>
-                                                      i = 0 <br>
-                                                      f = 50 # save frames every 50 seconds <br><br>
-                                                      &nbsp;
-                                                      
-                                                    </code>
-                                                    </font>
-                                                  </p>
+                                                  df_train, df_test = datasets.load_dataset('dbpedia_14', split=['train[:80%]', 'test[80%:]'])
+                                                  <br><br>                             
+                                                  <strong># split train/test datasets </strong><br>
+                                                  
+                                                  df_train = df_train.to_pandas().sample(frac=1).reset_index(drop=True)[:int(0.8 * M)]<br>
+                                                  df_test = df_test.to_pandas().sample(frac=1).reset_index(drop=True)[:int(0.2 * M)]
+                                                  
+                                                </code>
+                                                </font>
+                                              </p>
 
-                                                  <strong>Exploratory data analysis</strong><br>
-                                                  - save frames every 50 seconds, that will be around 155 images <br>
+                                              <strong>Explore the dataset </strong><br>
+                                              <br>
+                                              <p style="background-color:rgb(237, 233, 233);">
+                                                <font size="-0.4" >
+                                                <code>
+                                                  <strong># the distribution of the labels in the dataset </strong><br>
+                                                  print(df_train['label'].value_counts(), df_test['label'].value_counts()) <br><br>
+                                                  
+                                                  <strong># the distribution of sentence length in the dataset </strong><br>
+                                                  content_len_train = df_train['content'].map(lambda row: len(row), na_action='ignore')<br>
 
-                                                  <p style="background-color:rgb(237, 233, 233);">
-                                                    <font size="-0.4" >
-                                                    <code>
-                                                      frameRate = cap.get(5) <strong> #frame rate </strong><br>
-                                                      i = 0 <br>
-                                                      f = 50 # save frames every 50 seconds <br><br>
-                                                      &nbsp;
-                                                      
-                                                    </code>
-                                                    </font>
-                                                  </p>
-
-                                                </p>
-
-                                                                                                           
-                                                <hr>
+                                                </code>
+                                                </font>
+                                              </p>
+                                              <hr>
                                      
                                         <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Models & Results </strong>
+                                          <strong>Create batched inputs</strong>
+                                          <h5><strong>- Using Huggingface's DistilBERT tokenizer </strong></h5>
                                         </h3>
                                         <br>
                                         
-                                        <h5><strong>&#9749; PCA & KNN</strong></h5><br>
-
                                         <p style="background-color:rgb(237, 233, 233);">
                                           <font size="-0.4" >
                                           <code>
-                                            <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
-                                            model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
-                                         
+                                            tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-cased') <br><br>
+                                            
+                                            def tokenize_function(example):<br>
+                                            &nbsp; return tokenizer(example["content"], truncation=True, max_length=max_len)<br><br>
+
+                                            def batch_data(data, bsize):<br>
+                                                
+                                            &nbsp; tokenized_datasets = data.map(tokenize_function, batched=True)<br>
+                                            &nbsp; data_collator = DataCollatorWithPadding(tokenizer=tokenizer)<br><br>
+
+                                            &nbsp; tokenized_datasets = tokenized_datasets.remove_columns(["title", "content", "attention_mask"])<br>
+                                            &nbsp; tokenized_datasets.set_format("torch")<br>
+                                            &nbsp; dataloader = DataLoader(tokenized_datasets, shuffle=True, batch_size=batch_size, collate_fn=data_collator)<br>
+
+                                            &nbsp; return  dataloader
                                           </code>
                                           </font>
                                         </p>   
 
-                                        <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="" alt="" width="400" height="480"/><br><br>
-                                          Images after process<br><br>
-                                        </div>
-
-                                        <h5><strong>&#9749; K-means</strong></h5><br>
-
-                                        <p style="background-color:rgb(237, 233, 233);">
-                                          <font size="-0.4" >
-                                          <code>
-                                            <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
-                                            model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
-                                         
-                                          </code>
-                                          </font>
-                                        </p>   
-
-                                        <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="" alt="" width="400" height="480"/><br><br>
-                                          Images after process<br><br>
-                                        </div>
-
-                                        <h5><strong>&#9749; VGG-16</strong></h5><br>
-
-                                        <p style="background-color:rgb(237, 233, 233);">
-                                          <font size="-0.4" >
-                                          <code>
-                                            <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
-                                            model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
-                                         
-                                          </code>
-                                          </font>
-                                        </p>   
-
-                                        <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="" alt="" width="400" height="480"/><br><br>
-                                          Images after process<br><br>
-                                        </div>
-                                        
-
-                                        <h5><strong>&#9749; ResNet</strong></h5><br>
-
-                                        <p style="background-color:rgb(237, 233, 233);">
-                                          <font size="-0.4" >
-                                          <code>
-                                            <strong># INSERT CODE TO LOAD THE YOLO MODEL USING PYTORCH </strong><br>
-                                            model = torch.hub.load('ultralytics/yolov5', 'yolov5s') <br><br>
-                                         
-                                          </code>
-                                          </font>
-                                        </p>   
-
-                                        <div class="single_bloginner s_blogIner_1 text-center">
-                                          <img src="" alt="" width="400" height="480"/><br><br>
-                                          Images after process<br><br>
-                                        </div>
-                                        <hr>
-
-
-
-                                        <h3 style='font-family: "Times New Roman", Times, serif;'>
-                                          <strong>Conclusions</strong>
-                                        </h3>
-                                        <br>
-                                        
-                                        <p>
-                                          In this blog, we first show how to use OpenCV to transform video into images, how to use YOLOv5 to do object detection from each image, and then normalize the size of each object and create a new variable to calculate the number of different vehicles in each image and finally draw plots to show the number of vehicle changes over time. We can do more by saving images more frequently, creating variables to record more information, and using time series models to analyze further.
-                                        <br>
-                                        <hr>
-                                       
-                                        
+                                        <h5>...</h5>
+                  
                                         <h3 style='font-family: "Times New Roman", Times, serif;'>
                                           <strong>Links for more details</strong>
                                         </h3>
                                                 <br>
                                                 <ul>
                                                   <li>
-                                                    Complete Project (Github): <a href="https://github.com/Suie-Yu/ANLY590-CNN-based-model-for-recognizing-SVHN"><u>https://github.com/Suie-Yu/ANLY590-CNN-based-model-for-recognizing-SVHN</u></a> 
+                                                    Complete Project (Github): <a href="..."></u>...&#128679;</a> 
                                                   </li>
                                   
                                                 </ul>
